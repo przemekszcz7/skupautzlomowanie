@@ -85,6 +85,17 @@ ul {
 }
 
 /* Background elements (Ambient glowing lights, subtle lines) */
+.ambient-glow-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .ambient-glow-1 {
   position: absolute;
   top: 5%;
@@ -316,7 +327,8 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  transition: transform var(--transition-smooth);
+  transition: transform var(--transition-smooth), visibility var(--transition-smooth);
+  visibility: hidden;
 }
 
 .mobile-nav-link {
@@ -352,17 +364,20 @@ ul {
   z-index: 1040;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition-smooth);
+  transition: opacity var(--transition-smooth), visibility var(--transition-smooth);
+  visibility: hidden;
 }
 
 /* Pure CSS Drawer Activator */
 #mobile-menu-checkbox:checked ~ .mobile-nav {
   transform: translateX(0);
+  visibility: visible;
 }
 
 #mobile-menu-checkbox:checked ~ .mobile-nav-overlay {
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
 }
 
 #mobile-menu-checkbox:checked ~ .menu-toggle-btn span:nth-child(1) {
@@ -1467,3 +1482,53 @@ ul {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* Mobile adjustments for extra small screens to prevent overflow and wrapping bugs */
+@media (max-width: 480px) {
+  .cta-section {
+    padding: 40px 16px;
+  }
+  .cta-phone-link {
+    font-size: 1.25rem !important;
+    padding: 12px 18px !important;
+    width: 100%;
+    max-width: 290px;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 14px 20px;
+    box-sizing: border-box;
+  }
+  .counter-card {
+    padding: 24px;
+  }
+  .skup-card {
+    padding: 24px;
+  }
+  .review-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .logo-main {
+    font-size: 1rem !important;
+  }
+  .logo-sub {
+    font-size: 0.55rem !important;
+  }
+  .hero-title {
+    font-size: 1.85rem !important;
+  }
+  .cta-phone-link {
+    font-size: 1.1rem !important;
+    padding: 10px 14px !important;
+    max-width: 250px;
+  }
+}
+
