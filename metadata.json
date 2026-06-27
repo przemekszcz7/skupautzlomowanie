@@ -1,0 +1,6 @@
+{
+  "name": "Skup Aut Zabrze • Laweta • Złomowanie",
+  "description": "Profesjonalny skup samochodów, złomowanie pojazdów oraz usługa lawety 24/7 w Zabrzu i okolicach.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
