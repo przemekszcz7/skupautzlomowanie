@@ -48,6 +48,8 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -57,6 +59,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -272,18 +275,21 @@ ul {
 .menu-toggle-btn {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 1060; /* Higher than drawer overlay */
+  margin-right: -10px; /* Offset padding for better header alignment */
 }
 
 .menu-toggle-btn span {
   display: block;
-  width: 100%;
+  width: 24px;
   height: 2px;
   background-color: var(--color-navy);
   border-radius: 2px;
@@ -298,23 +304,24 @@ ul {
 .mobile-nav {
   position: fixed;
   top: 0;
-  right: -100%;
+  right: 0;
+  transform: translateX(100%);
   width: 100%;
-  max-width: 350px;
+  max-width: 320px;
   height: 100vh;
   background-color: var(--color-white);
-  box-shadow: -10px 0 30px rgba(15, 23, 42, 0.1);
-  z-index: 999;
+  box-shadow: -10px 0 30px rgba(15, 23, 42, 0.15);
+  z-index: 1050; /* Higher than standard header */
   padding: 100px 32px 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  transition: right var(--transition-smooth);
+  transition: transform var(--transition-smooth);
 }
 
 .mobile-nav-link {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--color-navy);
   border-bottom: 1px solid var(--color-gray-border);
@@ -333,13 +340,33 @@ ul {
   gap: 16px;
 }
 
+/* Mobile Drawer Overlay Backdrop */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1040;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-smooth);
+}
+
 /* Pure CSS Drawer Activator */
 #mobile-menu-checkbox:checked ~ .mobile-nav {
-  right: 0;
+  transform: translateX(0);
+}
+
+#mobile-menu-checkbox:checked ~ .mobile-nav-overlay {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #mobile-menu-checkbox:checked ~ .menu-toggle-btn span:nth-child(1) {
-  transform: translateY(9px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 #mobile-menu-checkbox:checked ~ .menu-toggle-btn span:nth-child(2) {
@@ -347,7 +374,7 @@ ul {
 }
 
 #mobile-menu-checkbox:checked ~ .menu-toggle-btn span:nth-child(3) {
-  transform: translateY(-9px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Hero Section */
@@ -1342,6 +1369,10 @@ ul {
 
   .menu-toggle-btn {
     display: none;
+  }
+
+  .mobile-nav, .mobile-nav-overlay {
+    display: none !important;
   }
 
   .hero-grid {
